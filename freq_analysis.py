@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 
 def rec_audio():
-    rec_time = 3            # 録音時間[s]
+    rec_time = 1            # 録音時間[s]
     size=2**12
 
     fmt = pyaudio.paInt16  # 音声のフォーマット
@@ -38,18 +38,13 @@ def rec_audio():
     freqList = np.fft.fftfreq(size, d)
     
     
-    #10000Hzごとにサンプルを10点取ってそれを平均したものを学習用の音声スペクトルデータとして用いる。
-    for i in range(10):
-        st=i*10000
-        windowedData = hammingWindow * ndarray_from_byte[st:st+size]  # 切り出した波形データ（窓関数あり）
-        sample_data = np.fft.fft(windowedData)
-        sample_data = sample_data / max(abs(sample_data)) # 0~1正規化
-        if(i==0):
-            data = sample_data
-        else:
-            data = (i*data+sample_data)/(i+1)
+    st=0
+    windowedData = hammingWindow * ndarray_from_byte[st:st+size]  # 切り出した波形データ（窓関数あり）
+    sample_data = np.fft.fft(windowedData)
+    sample_data = sample_data / max(abs(sample_data)) # 0~1正規化
+        
 
-    return freqList, data
+    return freqList, sample_data
 
 
 if __name__ == "__main__":
