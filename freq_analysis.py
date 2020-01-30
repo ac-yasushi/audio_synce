@@ -5,8 +5,7 @@ import pyaudio
 import matplotlib.pyplot as plt
 
 
-def rec_audio():
-    rec_time = 1            # 録音時間[s]
+def rec_audio(rec_time):
     size=2**12
 
     fmt = pyaudio.paInt16  # 音声のフォーマット
@@ -49,7 +48,7 @@ def rec_audio():
 
 if __name__ == "__main__":
     
-    freq, data=rec_audio()
+    freq, data=rec_audio(0.5)
     
     plt.plot(freq, abs(data))
          
